@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 require './lib/person.rb'
 require './spec/person_helpers.rb'
 
