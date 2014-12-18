@@ -4,7 +4,7 @@ Ruby Parsing Examples
 This code runs on ruby-2.1.5.
 Gemfile.lock indicates all gem requirements, including their versions.
 
-~~ Available Rake Tasks ~~
+~~Available Rake Tasks~~
 
 ```
 k3mbp:ruby-parsing-examples k3leland$ rake --tasks
