@@ -5,7 +5,15 @@ This code runs on ruby-2.1.5.
 
 [Gemfile.lock](Gemfile.lock) documents all gem requirements.
 
-**Available Rake Tasks**
+## Installation
+
+Running bundle install will install all the prerequisite gems.
+
+```
+bundle install
+```
+
+## Available Rake Tasks
 
 ```
 % rake --tasks
