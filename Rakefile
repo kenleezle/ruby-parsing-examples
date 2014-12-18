@@ -8,9 +8,8 @@ begin
 rescue LoadError
 end
 
-desc "Read all three file formats and print all three outputs"
+desc 'Read all three file formats and print all three outputs'
 task :print do
-
   Person.default_comparator =
     Person::GenderThenLastNameAscComparator.instance
 
@@ -25,7 +24,7 @@ task :print do
   Person.loader = Person::SpaceDelimitedLoader.instance
   people.concat Person.load_from_file('./spec/fixtures/space.txt')
 
-  puts "Output 1:"
+  puts 'Output 1:'
   puts people.sort.collect(&:to_s)
   puts
 
@@ -33,7 +32,7 @@ task :print do
     person.comparator = Person::DateOfBirthComparator.instance
   end
 
-  puts "Output 2:"
+  puts 'Output 2:'
   puts people.sort.collect(&:to_s)
   puts
 
@@ -41,6 +40,6 @@ task :print do
     person.comparator = Person::LastNameDescComparator.instance
   end
 
-  puts "Output 3:"
+  puts 'Output 3:'
   puts people.sort.collect(&:to_s)
 end

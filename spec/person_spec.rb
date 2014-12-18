@@ -1,5 +1,9 @@
 require './lib/person.rb'
+require './spec/person_helpers.rb'
+
 describe Person do
+  include PersonHelper
+
   it 'reads a pipe delimited file' do
     Person.loader = Person::PipeDelimitedLoader.instance
     people = Person.load_from_file('./spec/fixtures/sample_data.psv')
@@ -113,18 +117,7 @@ describe Person do
     Person.default_comparator =
       Person::GenderThenLastNameAscComparator.instance
 
-    people = Array.new
-
-    Person.loader = Person::PipeDelimitedLoader.instance
-    people.concat Person.load_from_file('./spec/fixtures/pipe.txt')
-
-    Person.loader = Person::CommaDelimitedLoader.instance
-    people.concat Person.load_from_file('./spec/fixtures/comma.txt')
-
-    Person.loader = Person::SpaceDelimitedLoader.instance
-    people.concat Person.load_from_file('./spec/fixtures/space.txt')
-
-    people_lines = people.sort.collect(&:to_s)
+    people_lines = people_from_all_three_formats.sort.collect(&:to_s)
     output_lines =
       File.readlines('./spec/fixtures/gender_last_name_asc_sorted')
 
@@ -133,36 +126,14 @@ describe Person do
   end
   it 'reads pipes, commas, and spaces and sorts by date of birth asc' do
     Person.default_comparator = Person::DateOfBirthComparator.instance
-    people = Array.new
-
-    Person.loader = Person::PipeDelimitedLoader.instance
-    people.concat Person.load_from_file('./spec/fixtures/pipe.txt')
-
-    Person.loader = Person::CommaDelimitedLoader.instance
-    people.concat Person.load_from_file('./spec/fixtures/comma.txt')
-
-    Person.loader = Person::SpaceDelimitedLoader.instance
-    people.concat Person.load_from_file('./spec/fixtures/space.txt')
-
-    people_lines = people.sort.collect(&:to_s)
+    people_lines = people_from_all_three_formats.sort.collect(&:to_s)
     output_lines = File.readlines('./spec/fixtures/birth_date_asc_sorted')
     output_lines.map!(&:chomp)
     expect(people_lines).to eql output_lines
   end
   it 'reads pipes, commas, and spaces and sorts by last name desc' do
     Person.default_comparator = Person::LastNameDescComparator.instance
-    people = Array.new
-
-    Person.loader = Person::PipeDelimitedLoader.instance
-    people.concat Person.load_from_file('./spec/fixtures/pipe.txt')
-
-    Person.loader = Person::CommaDelimitedLoader.instance
-    people.concat Person.load_from_file('./spec/fixtures/comma.txt')
-
-    Person.loader = Person::SpaceDelimitedLoader.instance
-    people.concat Person.load_from_file('./spec/fixtures/space.txt')
-
-    people_lines = people.sort.collect(&:to_s)
+    people_lines = people_from_all_three_formats.sort.collect(&:to_s)
     output_lines = File.readlines('./spec/fixtures/last_name_desc_sorted')
     output_lines.map!(&:chomp)
     expect(people_lines).to eql output_lines
